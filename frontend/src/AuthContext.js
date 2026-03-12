@@ -13,13 +13,18 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (userData) => {
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+    const { token, ...user } = userData;
+    setUser(user);
+    if (token) {
+      localStorage.setItem('token', token);
+    }
+    localStorage.setItem('user', JSON.stringify(user));
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
   };
 
   return (

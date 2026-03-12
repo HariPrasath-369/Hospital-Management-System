@@ -29,6 +29,7 @@ public class Dtos {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class AuthResponse {
+        private String token;
         private UUID id;
         private String name;
         private String email;

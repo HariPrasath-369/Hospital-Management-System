@@ -7,6 +7,7 @@ import com.hospital.backend.exception.BadRequestException;
 import com.hospital.backend.model.Role;
 import com.hospital.backend.model.User;
 import com.hospital.backend.repository.UserRepository;
+import com.hospital.backend.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +23,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
     public AuthResponse register(RegisterRequest request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
@@ -38,7 +40,9 @@ public class AuthService {
 
         userRepository.save(user);
 
-        return new AuthResponse(user.getId(), user.getName(), user.getEmail(), user.getRole().name());
+        var jwtToken = jwtService.generateToken(user);
+
+        return new AuthResponse(jwtToken, user.getId(), user.getName(), user.getEmail(), user.getRole().name());
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -49,6 +53,8 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         User user = (User) authentication.getPrincipal();
-        return new AuthResponse(user.getId(), user.getName(), user.getEmail(), user.getRole().name());
+        var jwtToken = jwtService.generateToken(user);
+        
+        return new AuthResponse(jwtToken, user.getId(), user.getName(), user.getEmail(), user.getRole().name());
     }
 }

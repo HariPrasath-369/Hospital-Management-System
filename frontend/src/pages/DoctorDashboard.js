@@ -64,20 +64,20 @@ export default function DoctorDashboard() {
   if (loading) return <div className="flex h-[80vh] items-center justify-center text-blue-500"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>;
 
   return (
-    <div className="space-y-8 animate-fade-in pb-12">
+    <div className="space-y-8 animate-fade-in pb-12 pt-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Doctor Workspace</h1>
-          <p className="text-gray-500 mt-1">Manage your schedule, availability, and upcoming patient visits.</p>
+          <h1 className="text-3xl font-bold tracking-tight text-white">Doctor Workspace</h1>
+          <p className="text-gray-400 mt-1">Manage your schedule, availability, and upcoming patient visits.</p>
         </div>
-        <div className="flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full font-medium text-sm">
+        <div className="flex items-center gap-2 bg-blue-500/10 text-blue-400 px-4 py-2 rounded-full font-medium text-sm border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.2)]">
           <Calendar size={16} /> 
           {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
         </div>
       </div>
 
       {error && (
-        <div className="bg-red-50 text-red-600 p-4 rounded-xl border border-red-100 flex items-center gap-3">
+        <div className="bg-rose-500/10 text-rose-400 p-4 rounded-xl border border-rose-500/20 flex items-center gap-3">
           <X size={20} /> {error}
         </div>
       )}
@@ -86,39 +86,39 @@ export default function DoctorDashboard() {
         
         {/* Availability Management */}
         <div className="xl:col-span-1 space-y-6">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <h2 className="text-lg font-semibold text-gray-900 mb-6 flex items-center gap-2 border-b pb-4">
-              <Calendar size={20} className="text-blue-500" /> Allocate Time Slots
+          <div className="bg-gray-800/80 backdrop-blur-md p-6 rounded-2xl shadow-[0_4px_25px_rgba(0,0,0,0.3)] border border-gray-700/50 hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] transition-all">
+            <h2 className="text-lg font-semibold text-white mb-6 flex items-center gap-2 border-b border-gray-700/50 pb-4">
+              <Calendar size={20} className="text-blue-400" /> Allocate Time Slots
             </h2>
             <form onSubmit={handleAddSlot} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                <label className="block text-sm font-medium text-gray-400 mb-1">Date</label>
                 <input 
                   type="date" 
                   required 
                   min={today} 
-                  className="block w-full rounded-lg border-gray-200 bg-gray-50 px-4 py-2.5 text-gray-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none" 
+                  className="block w-full rounded-xl border-0 bg-gray-900/50 px-4 py-3 text-white shadow-sm ring-1 ring-inset ring-gray-700 focus:ring-2 focus:ring-blue-500 transition-all outline-none" 
                   value={date} 
                   onChange={e => setDate(e.target.value)} 
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Start Time</label>
+                  <label className="block text-sm font-medium text-gray-400 mb-1">Start Time</label>
                   <input 
                     type="time" 
                     required 
-                    className="block w-full rounded-lg border-gray-200 bg-gray-50 px-4 py-2.5 text-gray-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none" 
+                    className="block w-full rounded-xl border-0 bg-gray-900/50 px-4 py-3 text-white shadow-sm ring-1 ring-inset ring-gray-700 focus:ring-2 focus:ring-blue-500 transition-all outline-none" 
                     value={startTime} 
                     onChange={e => setStartTime(e.target.value)} 
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">End Time</label>
+                  <label className="block text-sm font-medium text-gray-400 mb-1">End Time</label>
                   <input 
                     type="time" 
                     required 
-                    className="block w-full rounded-lg border-gray-200 bg-gray-50 px-4 py-2.5 text-gray-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none" 
+                    className="block w-full rounded-xl border-0 bg-gray-900/50 px-4 py-3 text-white shadow-sm ring-1 ring-inset ring-gray-700 focus:ring-2 focus:ring-blue-500 transition-all outline-none" 
                     value={endTime} 
                     onChange={e => setEndTime(e.target.value)} 
                   />
@@ -126,29 +126,29 @@ export default function DoctorDashboard() {
               </div>
               <button 
                 type="submit" 
-                className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 transition-all active:scale-[0.98]"
+                className="w-full relative overflow-hidden group flex justify-center items-center gap-2 py-3 px-4 rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.3)] text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] focus:outline-none focus:ring-4 focus:ring-emerald-500/50 transition-all duration-300 font-medium active:scale-[0.98]"
               >
                 <Plus size={18} /> Publish Slot
               </button>
             </form>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 pb-4 border-b">Upcoming Provided Slots</h2>
+          <div className="bg-gray-800/80 backdrop-blur-md p-6 rounded-2xl shadow-[0_4px_25px_rgba(0,0,0,0.3)] border border-gray-700/50">
+            <h2 className="text-lg font-semibold text-white mb-4 pb-4 border-b border-gray-700/50">Upcoming Provided Slots</h2>
             <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
               {slots.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-10 text-gray-400">
+                <div className="flex flex-col items-center justify-center py-10 text-gray-500">
                   <Calendar size={40} className="mb-3 opacity-20" />
                   <p className="text-sm">No unbooked slots.</p>
                 </div>
               ) : (
                 slots.map(slot => (
-                  <div key={slot.id} className="group relative flex justify-between items-center p-4 bg-gray-50/50 hover:bg-blue-50/50 rounded-xl border border-gray-100 hover:border-blue-100 transition-all">
+                  <div key={slot.id} className="group relative flex justify-between items-center p-4 bg-gray-900/50 hover:bg-gray-900 rounded-xl border border-gray-700/50 hover:border-blue-500/30 hover:shadow-[0_0_15px_rgba(59,130,246,0.1)] transition-all">
                     <div className="text-sm">
-                      <div className="font-semibold text-gray-900 flex items-center gap-2">
+                      <div className="font-semibold text-gray-200 flex items-center gap-2">
                         {slot.date}
                       </div>
-                      <div className="text-gray-500 mt-1 flex items-center gap-1.5">
+                      <div className="text-blue-400 mt-1 flex items-center gap-1.5 font-medium">
                          <Clock size={14}/> {slot.startTime} - {slot.endTime}
                       </div>
                     </div>
@@ -161,55 +161,55 @@ export default function DoctorDashboard() {
 
         {/* Appointments List */}
         <div className="xl:col-span-2">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 min-h-full">
-            <h2 className="text-lg font-semibold text-gray-900 mb-6 flex items-center gap-2 pb-4 border-b">
-              <Clock size={20} className="text-blue-500" /> Patient Appointments
+          <div className="bg-gray-800/80 backdrop-blur-md p-6 rounded-2xl shadow-[0_4px_25px_rgba(0,0,0,0.3)] border border-gray-700/50 min-h-full hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] transition-all">
+            <h2 className="text-lg font-semibold text-white mb-6 flex items-center gap-2 pb-4 border-b border-gray-700/50">
+              <Clock size={20} className="text-blue-400" /> Patient Appointments
             </h2>
             
             <div className="space-y-4 max-h-[800px] overflow-y-auto pr-2 custom-scrollbar">
               {appointments.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-20 text-gray-400 border-2 border-dashed border-gray-100 rounded-2xl">
+                <div className="flex flex-col items-center justify-center py-20 text-gray-500 border-2 border-dashed border-gray-700 rounded-2xl">
                   <Clock size={48} className="mb-4 opacity-20" />
-                  <p className="text-lg font-medium text-gray-600">Clear Schedule</p>
-                  <p className="text-sm">You have no booked appointments right now.</p>
+                  <p className="text-lg font-medium text-gray-400">Clear Schedule</p>
+                  <p className="text-sm mt-1">You have no booked appointments right now.</p>
                 </div>
               ) : (
                 appointments.map(apt => (
-                  <div key={apt.id} className="relative overflow-hidden group flex flex-col sm:flex-row justify-between items-start sm:items-center p-5 bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all gap-4">
+                  <div key={apt.id} className="relative overflow-hidden group flex flex-col sm:flex-row justify-between items-start sm:items-center p-5 bg-gray-900/60 rounded-xl border border-gray-700/50 hover:border-blue-500/30 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] transition-all gap-4 duration-300">
                     {/* Status accent border */}
                     <div className={`absolute left-0 top-0 bottom-0 w-1.5 transition-colors ${
-                      apt.status === 'CONFIRMED' ? 'bg-green-500' :
-                      apt.status === 'COMPLETED' ? 'bg-blue-500' :
-                      apt.status === 'CANCELLED' ? 'bg-red-500' :
-                      'bg-yellow-400'
+                      apt.status === 'CONFIRMED' ? 'bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.5)]' :
+                      apt.status === 'COMPLETED' ? 'bg-blue-400 shadow-[0_0_10px_rgba(96,165,250,0.5)]' :
+                      apt.status === 'CANCELLED' ? 'bg-rose-400 shadow-[0_0_10px_rgba(251,113,133,0.5)]' :
+                      'bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.5)]'
                     }`} />
                     
                     <div className="pl-2">
-                      <div className="font-bold text-gray-900 text-lg">{apt.patientName}</div>
-                      <div className="text-sm text-gray-500 mt-1 flex items-center gap-4">
-                        <span className="flex items-center gap-1.5"><Calendar size={14} className="text-blue-500" /> {apt.date}</span>
-                        <span className="flex items-center gap-1.5"><Clock size={14} className="text-blue-500" /> {apt.startTime} - {apt.endTime}</span>
+                      <div className="font-bold text-gray-100 text-lg">{apt.patientName}</div>
+                      <div className="text-sm mt-2 flex items-center gap-4">
+                        <span className="flex items-center gap-1.5 bg-gray-800 px-2.5 py-1 rounded-md border border-gray-700/50 text-gray-300"><Calendar size={14} className="text-blue-400" /> {apt.date}</span>
+                        <span className="flex items-center gap-1.5 bg-gray-800 px-2.5 py-1 rounded-md border border-gray-700/50 text-gray-300"><Clock size={14} className="text-blue-400" /> {apt.startTime} - {apt.endTime}</span>
                       </div>
                     </div>
                     
                     <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto mt-2 sm:mt-0">
-                      <span className={`px-3 py-1 text-xs font-bold tracking-wide uppercase rounded-full ${
-                        apt.status === 'CONFIRMED' ? 'bg-green-100 text-green-700' :
-                        apt.status === 'COMPLETED' ? 'bg-blue-100 text-blue-700' :
-                        apt.status === 'CANCELLED' ? 'bg-red-100 text-red-700' :
-                        'bg-yellow-100 text-yellow-800'
+                      <span className={`px-4 py-1.5 text-xs font-bold tracking-wider uppercase rounded-full shadow-sm ${
+                        apt.status === 'CONFIRMED' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                        apt.status === 'COMPLETED' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
+                        apt.status === 'CANCELLED' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
+                        'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                       }`}>
                         {apt.status}
                       </span>
                       
                       {apt.status === 'BOOKED' && (
-                        <button onClick={() => handleUpdateStatus(apt.id, 'CONFIRMED')} className="text-sm flex items-center gap-1.5 text-white font-medium bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg shadow-sm hover:shadow transition-all active:scale-95">
+                        <button onClick={() => handleUpdateStatus(apt.id, 'CONFIRMED')} className="text-sm flex items-center gap-1.5 text-white font-medium bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 px-4 py-2 rounded-lg shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] transition-all active:scale-95">
                           <Check size={16} /> Confirm
                         </button>
                       )}
                       
                       {apt.status === 'CONFIRMED' && (
-                        <button onClick={() => handleUpdateStatus(apt.id, 'COMPLETED')} className="text-sm flex items-center gap-1.5 text-white font-medium bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg shadow-sm hover:shadow transition-all active:scale-95">
+                        <button onClick={() => handleUpdateStatus(apt.id, 'COMPLETED')} className="text-sm flex items-center gap-1.5 text-white font-medium bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 px-4 py-2 rounded-lg shadow-[0_0_15px_rgba(79,70,229,0.3)] hover:shadow-[0_0_20px_rgba(79,70,229,0.5)] transition-all active:scale-95">
                           <Check size={16} /> Complete
                         </button>
                       )}

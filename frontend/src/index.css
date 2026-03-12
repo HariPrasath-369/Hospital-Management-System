@@ -6,7 +6,7 @@
 
 @layer base {
   body {
-    @apply bg-gray-50/50 text-gray-900 font-sans antialiased;
+    @apply bg-gray-900 text-gray-50 font-sans antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 }
@@ -19,7 +19,7 @@
     background: transparent;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
+    @apply bg-gray-700 rounded-full hover:bg-gray-600 transition-colors;
   }
 
   .animate-fade-in {

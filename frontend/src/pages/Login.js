@@ -9,7 +9,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ export default function Login() {
     e.preventDefault();
     setError('');
     setLoading(true);
-    
+
     try {
       const { data } = await api.post('/auth/login', { email, password });
       login(data);
@@ -39,14 +39,14 @@ export default function Login() {
           <Activity size={48} />
         </div>
         <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Sign in to your account
+          Sign in to your account ..
         </h2>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm bg-white p-8 rounded-xl shadow-md border border-gray-100">
         <form className="space-y-6" onSubmit={handleLogin}>
           {error && <div className="text-red-500 text-sm p-3 bg-red-50 rounded-md border border-red-100">{error}</div>}
-          
+
           <div>
             <label className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
             <div className="mt-2">
