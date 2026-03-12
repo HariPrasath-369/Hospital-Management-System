@@ -55,7 +55,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOriginPatterns(List.of("http://localhost:*","https://hospitalmanagement-tau.vercel.app")); // Allow frontend port
+        // Explicitly set BOTH allowed origins for CORS.
+        config.setAllowedOrigins(List.of("http://localhost:3000", "https://hospitalmanagement-tau.vercel.app")); 
         config.setAllowedHeaders(List.of("*"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

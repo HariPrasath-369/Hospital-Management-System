@@ -61,57 +61,96 @@ export default function DoctorDashboard() {
     }
   };
 
-  if (loading) return <div className="p-8 text-center text-gray-500">Loading your schedule...</div>;
+  if (loading) return <div className="flex h-[80vh] items-center justify-center text-blue-500"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>;
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Doctor Dashboard</h1>
-        <p className="text-gray-500">Manage your availability and appointments.</p>
+    <div className="space-y-8 animate-fade-in pb-12">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Doctor Workspace</h1>
+          <p className="text-gray-500 mt-1">Manage your schedule, availability, and upcoming patient visits.</p>
+        </div>
+        <div className="flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full font-medium text-sm">
+          <Calendar size={16} /> 
+          {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+        </div>
       </div>
 
-      {error && <div className="bg-red-50 text-red-600 p-4 rounded-md">{error}</div>}
+      {error && (
+        <div className="bg-red-50 text-red-600 p-4 rounded-xl border border-red-100 flex items-center gap-3">
+          <X size={20} /> {error}
+        </div>
+      )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
         
         {/* Availability Management */}
-        <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Calendar size={20} className="text-blue-500" /> Add Available Slot
+        <div className="xl:col-span-1 space-y-6">
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <h2 className="text-lg font-semibold text-gray-900 mb-6 flex items-center gap-2 border-b pb-4">
+              <Calendar size={20} className="text-blue-500" /> Allocate Time Slots
             </h2>
-            <form onSubmit={handleAddSlot} className="space-y-4">
+            <form onSubmit={handleAddSlot} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Date</label>
-                <input type="date" required min={today} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" value={date} onChange={e => setDate(e.target.value)} />
+                <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                <input 
+                  type="date" 
+                  required 
+                  min={today} 
+                  className="block w-full rounded-lg border-gray-200 bg-gray-50 px-4 py-2.5 text-gray-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none" 
+                  value={date} 
+                  onChange={e => setDate(e.target.value)} 
+                />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Start Time</label>
-                  <input type="time" required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" value={startTime} onChange={e => setStartTime(e.target.value)} />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Start Time</label>
+                  <input 
+                    type="time" 
+                    required 
+                    className="block w-full rounded-lg border-gray-200 bg-gray-50 px-4 py-2.5 text-gray-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none" 
+                    value={startTime} 
+                    onChange={e => setStartTime(e.target.value)} 
+                  />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">End Time</label>
-                  <input type="time" required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" value={endTime} onChange={e => setEndTime(e.target.value)} />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">End Time</label>
+                  <input 
+                    type="time" 
+                    required 
+                    className="block w-full rounded-lg border-gray-200 bg-gray-50 px-4 py-2.5 text-gray-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none" 
+                    value={endTime} 
+                    onChange={e => setEndTime(e.target.value)} 
+                  />
                 </div>
               </div>
-              <button type="submit" className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                <Plus size={16} /> Add Slot
+              <button 
+                type="submit" 
+                className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 transition-all active:scale-[0.98]"
+              >
+                <Plus size={18} /> Publish Slot
               </button>
             </form>
           </div>
 
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Upcoming Slots</h2>
-            <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4 pb-4 border-b">Upcoming Provided Slots</h2>
+            <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
               {slots.length === 0 ? (
-                <p className="text-sm text-gray-500 text-center py-4">No upcoming slots found.</p>
+                <div className="flex flex-col items-center justify-center py-10 text-gray-400">
+                  <Calendar size={40} className="mb-3 opacity-20" />
+                  <p className="text-sm">No unbooked slots.</p>
+                </div>
               ) : (
                 slots.map(slot => (
-                  <div key={slot.id} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <div key={slot.id} className="group relative flex justify-between items-center p-4 bg-gray-50/50 hover:bg-blue-50/50 rounded-xl border border-gray-100 hover:border-blue-100 transition-all">
                     <div className="text-sm">
-                      <div className="font-medium text-gray-900">{slot.date}</div>
-                      <div className="text-gray-500">{slot.startTime} - {slot.endTime}</div>
+                      <div className="font-semibold text-gray-900 flex items-center gap-2">
+                        {slot.date}
+                      </div>
+                      <div className="text-gray-500 mt-1 flex items-center gap-1.5">
+                         <Clock size={14}/> {slot.startTime} - {slot.endTime}
+                      </div>
                     </div>
                   </div>
                 ))
@@ -121,47 +160,57 @@ export default function DoctorDashboard() {
         </div>
 
         {/* Appointments List */}
-        <div className="lg:col-span-2">
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 min-h-full">
-            <h2 className="text-lg font-semibold text-gray-900 mb-6 flex items-center gap-2">
-              <Clock size={20} className="text-blue-500" /> Your Appointments
+        <div className="xl:col-span-2">
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 min-h-full">
+            <h2 className="text-lg font-semibold text-gray-900 mb-6 flex items-center gap-2 pb-4 border-b">
+              <Clock size={20} className="text-blue-500" /> Patient Appointments
             </h2>
             
-            <div className="space-y-4">
+            <div className="space-y-4 max-h-[800px] overflow-y-auto pr-2 custom-scrollbar">
               {appointments.length === 0 ? (
-                <div className="text-center py-12 text-gray-500 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-                  No appointments scheduled.
+                <div className="flex flex-col items-center justify-center py-20 text-gray-400 border-2 border-dashed border-gray-100 rounded-2xl">
+                  <Clock size={48} className="mb-4 opacity-20" />
+                  <p className="text-lg font-medium text-gray-600">Clear Schedule</p>
+                  <p className="text-sm">You have no booked appointments right now.</p>
                 </div>
               ) : (
                 appointments.map(apt => (
-                  <div key={apt.id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-white rounded-lg border border-gray-200 shadow-sm hover:border-blue-200 transition-colors gap-4">
-                    <div>
-                      <div className="font-semibold text-gray-900">{apt.patientName}</div>
-                      <div className="text-sm text-gray-500 mt-1 flex items-center gap-2">
-                        <Calendar size={14} /> {apt.date} 
-                        <Clock size={14} className="ml-2" /> {apt.startTime} - {apt.endTime}
+                  <div key={apt.id} className="relative overflow-hidden group flex flex-col sm:flex-row justify-between items-start sm:items-center p-5 bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all gap-4">
+                    {/* Status accent border */}
+                    <div className={`absolute left-0 top-0 bottom-0 w-1.5 transition-colors ${
+                      apt.status === 'CONFIRMED' ? 'bg-green-500' :
+                      apt.status === 'COMPLETED' ? 'bg-blue-500' :
+                      apt.status === 'CANCELLED' ? 'bg-red-500' :
+                      'bg-yellow-400'
+                    }`} />
+                    
+                    <div className="pl-2">
+                      <div className="font-bold text-gray-900 text-lg">{apt.patientName}</div>
+                      <div className="text-sm text-gray-500 mt-1 flex items-center gap-4">
+                        <span className="flex items-center gap-1.5"><Calendar size={14} className="text-blue-500" /> {apt.date}</span>
+                        <span className="flex items-center gap-1.5"><Clock size={14} className="text-blue-500" /> {apt.startTime} - {apt.endTime}</span>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
-                      <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${
-                        apt.status === 'CONFIRMED' ? 'bg-green-100 text-green-800' :
-                        apt.status === 'COMPLETED' ? 'bg-gray-100 text-gray-800' :
-                        apt.status === 'CANCELLED' ? 'bg-red-100 text-red-800' :
+                    <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto mt-2 sm:mt-0">
+                      <span className={`px-3 py-1 text-xs font-bold tracking-wide uppercase rounded-full ${
+                        apt.status === 'CONFIRMED' ? 'bg-green-100 text-green-700' :
+                        apt.status === 'COMPLETED' ? 'bg-blue-100 text-blue-700' :
+                        apt.status === 'CANCELLED' ? 'bg-red-100 text-red-700' :
                         'bg-yellow-100 text-yellow-800'
                       }`}>
                         {apt.status}
                       </span>
                       
                       {apt.status === 'BOOKED' && (
-                        <button onClick={() => handleUpdateStatus(apt.id, 'CONFIRMED')} className="text-sm flex items-center gap-1 text-green-600 hover:text-green-800 bg-green-50 px-3 py-1.5 rounded border border-green-200">
-                          <Check size={14} /> Confirm
+                        <button onClick={() => handleUpdateStatus(apt.id, 'CONFIRMED')} className="text-sm flex items-center gap-1.5 text-white font-medium bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg shadow-sm hover:shadow transition-all active:scale-95">
+                          <Check size={16} /> Confirm
                         </button>
                       )}
                       
                       {apt.status === 'CONFIRMED' && (
-                        <button onClick={() => handleUpdateStatus(apt.id, 'COMPLETED')} className="text-sm flex items-center gap-1 text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1.5 rounded border border-blue-200">
-                          <Check size={14} /> Mark Complete
+                        <button onClick={() => handleUpdateStatus(apt.id, 'COMPLETED')} className="text-sm flex items-center gap-1.5 text-white font-medium bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg shadow-sm hover:shadow transition-all active:scale-95">
+                          <Check size={16} /> Complete
                         </button>
                       )}
                     </div>
